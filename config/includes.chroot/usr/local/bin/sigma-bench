@@ -1,0 +1,32 @@
+#!/bin/sh
+# Sigma OS Kurz-Benchmark: Werte, die sich mit einem Standard-Debian vergleichen lassen.
+# Fuer I/O und CPU zusaetzlich: sudo apt install fio sysbench
+echo "== Boot =="
+systemd-analyze 2>/dev/null || true
+echo
+echo "== Langsamste Units =="
+systemd-analyze blame 2>/dev/null | head -n 10
+echo
+echo "== RAM (MiB) =="
+free -m
+echo
+echo "== Swap / zram =="
+swapon --show 2>/dev/null || true
+echo
+echo "== I/O-Scheduler =="
+for f in /sys/block/*/queue/scheduler; do
+    d=${f#/sys/block/}
+    d=${d%%/*}
+    case "$d" in loop*|ram*|zram*) continue ;; esac
+    printf '%s: %s\n' "$d" "$(cat "$f")"
+done
+echo
+echo "== Kernel =="
+uname -r
+printf 'TCP: '
+sysctl -n net.ipv4.tcp_congestion_control
+printf 'THP: '
+cat /sys/kernel/mm/transparent_hugepage/enabled
+echo
+echo "== Belegter Speicher / =="
+df -h / | tail -n 1

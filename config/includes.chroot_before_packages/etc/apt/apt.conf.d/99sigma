@@ -1,0 +1,5 @@
+// Sigma OS: nur harte Abhaengigkeiten installieren.
+APT::Install-Recommends "false";
+APT::Install-Suggests "false";
+// Keine Uebersetzungs-Indizes ausser de/en laden.
+Acquire::Languages { "de"; "en"; };

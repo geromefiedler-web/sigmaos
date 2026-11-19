@@ -1,0 +1,60 @@
+# --- Login ---
+greetd
+tuigreet
+
+# --- Wayland-Compositor und Werkzeuge ---
+labwc
+xwayland
+swaybg
+swayidle
+swaylock
+wlr-randr
+kanshi
+grim
+slurp
+wl-clipboard
+fuzzel
+brightnessctl
+qt6-wayland
+xdg-desktop-portal
+xdg-desktop-portal-wlr
+x11-xserver-utils
+
+# --- LXQt-2.1-Komponenten (laufen direkt unter labwc) ---
+lxqt-session
+lxqt-panel
+lxqt-config
+lxqt-qtplugin
+lxqt-policykit
+lxqt-notificationd
+lxqt-powermanagement
+lxqt-themes
+lxqt-menu-data
+pcmanfm-qt
+qterminal
+gvfs
+xdg-user-dirs
+xdg-utils
+nm-tray
+
+# --- Grafiktreiber (Mesa) ---
+libgl1-mesa-dri
+libegl1
+libgles2
+mesa-va-drivers
+intel-media-va-driver
+
+# --- Audio ---
+pipewire
+pipewire-pulse
+pipewire-alsa
+wireplumber
+pavucontrol-qt
+
+# --- Aussehen ---
+breeze-icon-theme
+breeze-cursor-theme
+fonts-inter
+fonts-hack
+fonts-dejavu-core
+fonts-noto-color-emoji

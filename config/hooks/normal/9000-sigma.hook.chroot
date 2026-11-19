@@ -1,0 +1,37 @@
+#!/bin/sh
+# Sigma OS: letzte Anpassungen im fertigen Wurzelsystem.
+set -e
+
+# Sprache: Deutsch (Englisch als Rueckfall), schon beim Bau erzeugt -> schnellerer Live-Start.
+sed -i -e 's/^# *\(de_DE.UTF-8 UTF-8\)/\1/' -e 's/^# *\(en_US.UTF-8 UTF-8\)/\1/' /etc/locale.gen
+locale-gen
+update-locale LANG=de_DE.UTF-8
+
+# Identitaet. Per dpkg-divert, damit Debian-Updates die Datei nicht ueberschreiben.
+dpkg-divert --local --rename --add /usr/lib/os-release
+cat > /usr/lib/os-release <<OSR
+PRETTY_NAME="Sigma OS 0.1"
+NAME="Sigma OS"
+VERSION_ID="0.1"
+VERSION="0.1 (Basis: Debian 13 trixie)"
+VERSION_CODENAME=trixie
+ID=sigma
+ID_LIKE=debian
+ANSI_COLOR="0;36"
+OSR
+printf '%s\n\n' 'Sigma OS 0.1 \n \l' > /etc/issue
+echo "Sigma OS 0.1" > /etc/issue.net
+
+# Dienste: nur was gebraucht wird.
+systemctl set-default graphical.target
+systemctl enable greetd.service NetworkManager.service earlyoom.service fstrim.timer sigma-live-autologin.service
+# Wartet beim Boot bis zu 60 s auf Netzwerk - auf einem Desktop unnoetig.
+systemctl mask NetworkManager-wait-online.service
+for unit in e2scrub_all.timer e2scrub_reap.service man-db.timer; do
+    systemctl disable "$unit" 2>/dev/null || true
+done
+
+# Aufraeumen.
+apt-get -y autoremove --purge
+apt-get clean
+rm -rf /var/cache/debconf/*-old /var/lib/dpkg/*-old

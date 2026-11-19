@@ -1,0 +1,14 @@
+#!/bin/sh
+# Nur auf dem INSTALLIERTEN System ausfuehren (nicht im Live-System):
+# baut ein initramfs, das nur die Treiber dieses Rechners enthaelt (kleiner, schnellerer Boot).
+# Risiko: Nach Umzug der Platte in einen anderen Rechner startet das System evtl. nicht.
+# Rueckgaengig: /etc/initramfs-tools/conf.d/sigma-hostonly.conf loeschen, dann update-initramfs -u
+set -eu
+[ "$(id -u)" -eq 0 ] || { echo "Bitte mit sudo ausfuehren." >&2; exit 1; }
+if grep -qw boot=live /proc/cmdline; then
+    echo "Das ist das Live-System - hier nicht sinnvoll." >&2
+    exit 1
+fi
+echo "MODULES=dep" > /etc/initramfs-tools/conf.d/sigma-hostonly.conf
+update-initramfs -u
+ls -lh /boot/initrd.img-*

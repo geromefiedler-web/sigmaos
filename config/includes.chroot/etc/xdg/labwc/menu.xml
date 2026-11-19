@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openbox_menu>
+  <menu id="root-menu" label="">
+    <item label="Terminal"><action name="Execute" command="qterminal" /></item>
+    <item label="Dateien"><action name="Execute" command="pcmanfm-qt" /></item>
+    <item label="Browser"><action name="Execute" command="firefox-esr" /></item>
+    <item label="Programme suchen"><action name="Execute" command="fuzzel" /></item>
+    <separator />
+    <item label="Sperren"><action name="Execute" command="swaylock -f -c 0b0f14" /></item>
+    <item label="Abmelden"><action name="Exit" /></item>
+    <item label="Neu starten"><action name="Execute" command="systemctl reboot" /></item>
+    <item label="Herunterfahren"><action name="Execute" command="systemctl poweroff" /></item>
+  </menu>
+</openbox_menu>

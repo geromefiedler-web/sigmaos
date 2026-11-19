@@ -1,0 +1,5 @@
+#!/bin/sh
+# Bildschirmfoto in den Bilder-Ordner (Taste "Druck").
+dir="$(xdg-user-dir PICTURES 2>/dev/null || echo "$HOME")"
+mkdir -p "$dir"
+exec grim "$dir/Bildschirmfoto-$(date +%F-%H%M%S).png"

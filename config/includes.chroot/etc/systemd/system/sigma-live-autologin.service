@@ -1,0 +1,11 @@
+[Unit]
+Description=Sigma OS: automatische Anmeldung im Live-System
+ConditionKernelCommandLine=boot=live
+Before=greetd.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/cp /etc/greetd/sigma-live.toml /etc/greetd/config.toml
+
+[Install]
+WantedBy=multi-user.target

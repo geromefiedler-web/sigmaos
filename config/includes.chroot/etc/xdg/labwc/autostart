@@ -1,0 +1,10 @@
+# Sigma OS Sitzung: nur das Noetigste starten.
+swaybg -c '#0b0f14' -i /usr/share/sigma/wallpaper.png -m fill >/dev/null 2>&1 &
+lxqt-panel >/dev/null 2>&1 &
+lxqt-notificationd >/dev/null 2>&1 &
+lxqt-policykit-agent >/dev/null 2>&1 &
+lxqt-powermanagement >/dev/null 2>&1 &
+nm-tray >/dev/null 2>&1 &
+kanshi >/dev/null 2>&1 &
+swayidle -w before-sleep 'swaylock -f -c 0b0f14' >/dev/null 2>&1 &
+xdg-user-dirs-update >/dev/null 2>&1 &

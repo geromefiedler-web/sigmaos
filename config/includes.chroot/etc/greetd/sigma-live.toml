@@ -1,0 +1,11 @@
+# Wird nur im Live-System aktiviert (sigma-live-autologin.service).
+[terminal]
+vt = 7
+
+[default_session]
+command = "tuigreet --time --remember --asterisks --greeting 'Sigma OS Live (Benutzer: sigma, Passwort: live)' --cmd labwc"
+user = "_greetd"
+
+[initial_session]
+command = "labwc"
+user = "sigma"

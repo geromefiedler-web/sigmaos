@@ -1,0 +1,12 @@
+# --- Standard-Anwendungen ---
+firefox-esr
+firefox-esr-l10n-de
+featherpad
+lximage-qt
+lxqt-archiver
+qps
+mpv
+
+# --- Installer ---
+calamares
+calamares-settings-debian

@@ -1,0 +1,47 @@
+name: Sigma OS ISO bauen
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "**.md"
+    tags:
+      - "v*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    container:
+      image: debian:trixie
+      options: --privileged
+    steps:
+      - name: Werkzeuge installieren
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends live-build git ca-certificates
+
+      - uses: actions/checkout@v4
+
+      - name: ISO bauen
+        run: sh build.sh
+
+      - name: Build-Log sichern
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: build.log
+          if-no-files-found: ignore
+
+      - name: ISO hochladen
+        uses: actions/upload-artifact@v4
+        with:
+          name: sigma-os-iso
+          path: |
+            sigma-os-*.iso
+            SHA256SUMS
+          compression-level: 0
+          if-no-files-found: error

@@ -1,0 +1,7 @@
+# Sigma OS: I/O-Scheduler je Geraetetyp.
+# NVMe: kein Scheduler (die Hardware-Queues sind schneller).
+ACTION=="add|change", KERNEL=="nvme[0-9]*n[0-9]*", ATTR{queue/scheduler}="none"
+# SATA-SSD, eMMC, SD: mq-deadline.
+ACTION=="add|change", KERNEL=="sd[a-z]*|mmcblk[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="mq-deadline"
+# Festplatten: bfq haelt den Desktop bei Kopiervorgaengen bedienbar; mehr Readahead.
+ACTION=="add|change", KERNEL=="sd[a-z]*", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="bfq", ATTR{bdi/read_ahead_kb}="1024"
